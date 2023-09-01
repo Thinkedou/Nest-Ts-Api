@@ -10,6 +10,10 @@ import { BookRepository } from './book.repository';
 export class BookService{
     constructor(private readonly BookRepository:BookRepository){}
 
+    async getOneBook(bookId: string):Promise<Book|null>{
+        return this.BookRepository.findOne(bookId)
+    }
+
     async getBooks():Promise<Book[]>{
         return this.BookRepository.find({})
     }
@@ -18,5 +22,8 @@ export class BookService{
     }
     async updateBook(bookId: string, bookUpdate: UpdateBooksDto):Promise<Book|null>{
         return this.BookRepository.findOneAndUpdate({ _id:bookId }, bookUpdate)
+    }
+    async deleteBook(bookId: string):Promise<Book|null>{
+        return this.BookRepository.deleteOne(bookId)
     }
 }

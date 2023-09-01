@@ -1,5 +1,5 @@
 
-import { Controller,  Get,  Post,  Param, Body, Patch } from '@nestjs/common';
+import { Controller,  Get,  Post, Delete,  Param, Body, Patch } from '@nestjs/common';
 import { CreateBooksDto } from './dto/create-books.dto';
 import { UpdateBooksDto } from './dto/update-books.dto';
 
@@ -9,6 +9,13 @@ import { BookService } from './book.service';
 @Controller('books')
 export class BookController {
   constructor(private readonly bookService:BookService){}
+
+
+  @Get(':bookId')
+  async getOneBook(@Param('bookId') bookId:string):Promise<Book|null> {
+    return this.bookService.getOneBook(bookId)
+  }
+
   @Get()
   async getAllBooks():Promise<Book[]> {
     return this.bookService.getBooks()
@@ -23,6 +30,10 @@ export class BookController {
   async update(@Param('bookId') bookId:string, @Body() updateBook: UpdateBooksDto):Promise<Book|null> {
     return this.bookService.updateBook(bookId,updateBook)
   }
-  
+
+  @Delete(':bookId')
+  async delete(@Param('bookId') bookId: string):Promise<Book|null> {
+    return await this.bookService.deleteBook(bookId);
+  }
   
 }
