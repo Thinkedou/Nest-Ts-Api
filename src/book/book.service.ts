@@ -4,6 +4,8 @@ import { CreateBooksDto } from "./dto/create-books.dto";
 import { UpdateBooksDto } from "./dto/update-books.dto";
 import {Book} from "./schemas/book.schema"
 import { BookRepository } from './book.repository';
+import { QueryBuilderService } from "src/query-builder/query-builder.service";
+import { FilterQuery } from "mongoose";
 
 
 @Injectable()
@@ -14,8 +16,10 @@ export class BookService{
         return this.BookRepository.findOne(bookId)
     }
 
-    async getBooks():Promise<Book[]>{
-        return this.BookRepository.find({})
+    async getBooks(rawQuery:FilterQuery<Book>):Promise<Book[]>{
+        const q = new QueryBuilderService()
+        const {options} = q.getFindOptions(rawQuery)
+        return this.BookRepository.find(options)
     }
     async createBook(createBooks:CreateBooksDto):Promise<Book>{
         return this.BookRepository.create(createBooks)

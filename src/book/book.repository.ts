@@ -8,8 +8,8 @@ import { Book,BookDocument } from './schemas/book.schema';
 export class BookRepository{
     constructor(@InjectModel(Book.name) private bookModel:Model<BookDocument>){}
 
-    async find(booksFilterQuery:FilterQuery<Book>): Promise<Book[]>{
-        return this.bookModel.find(booksFilterQuery)
+    async find(findOptions:FilterQuery<Book>): Promise<Book[]>{
+        return this.bookModel.find({},{},findOptions)
     }
     async findOne(bookId:string):Promise<Book|null>{
         return this.bookModel.findById(bookId)
