@@ -5,7 +5,7 @@ services:
   mongo_db:
     container_name: mongo_container
     image: mongo:latest
-    command: --quiet
+    command: mongod --quiet --logpath /dev/null
     restart: always
     ports:
       - 2717:27017
