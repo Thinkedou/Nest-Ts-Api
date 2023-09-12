@@ -28,7 +28,10 @@ $  docker compose up
 ## Endpoint
 
 If everything went well it should start a local server on port 3000 
+
 [http://localhost:3000/books](http://localhost:3000/books) retrieve all the books
+
 [http://localhost:3000/books/booksId](http://localhost:3000/books) retrieve one book
+
 **POST**, **PATCH** & **DELETE** http verb are implemented as well following the basic REST principles
  
